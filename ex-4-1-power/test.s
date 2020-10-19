@@ -9,8 +9,8 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with x=3, y=4
-  MOV   R1, #3
-  MOV   R2, #4
+  MOV   R1, #2
+  MOV   R2, #10
   bx    lr
 
 .end
