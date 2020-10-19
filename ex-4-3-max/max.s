@@ -7,9 +7,13 @@ Main:
 
   @ Calculate the maximum of two values a and b
   @ a is in R1, b is in R2
-
-  @ *** your solution goes here ***
-
+  CMP R1, R2
+  BLT ElseMaxB
+  MOV R0, R1
+  B EndMax
+ElseMaxB:
+  MOV R0, R2
+EndMax:
   @ End of program ... check your result
 
 End_Main:
