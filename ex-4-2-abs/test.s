@@ -9,7 +9,7 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with value=-5
-  MOV   R1, #-5
+  MOV   R1, #-32
   bx    lr
 
 .end
