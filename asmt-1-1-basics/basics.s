@@ -7,6 +7,7 @@ Main:
 
   @ Write an ARM Assembly Language program to evaluate
   @   x^3 - 4x^2 + 3x + 8
+  MOV R0, #0
   MUL R5, R1, R1
   MUL R5, R5, R1
   MOV R2, #4
