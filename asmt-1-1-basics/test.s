@@ -9,7 +9,7 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with x = 5
-  LDR   R1, =5
+  LDR   R1, =-5
   bx    lr
 
 .end
