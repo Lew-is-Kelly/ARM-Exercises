@@ -15,8 +15,8 @@ Main:
   MUL R5, R5, R2 @a(x^2)
   MOV R6, R1
   MUL R6, R6, R3 @b(x)
-  ADD R0, R5, R6
-  ADD R0, R0, R4
+  ADD R0, R5, R6 @(bx)+c
+  ADD R0, R0, R4 @(ax^2)+(bx+c)
   @ End of program ... check your result
 
 End_Main:
