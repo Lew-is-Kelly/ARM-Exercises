@@ -11,5 +11,8 @@
 		  "marus25.cortex-debug",
 		  "marus25.cortex-debug-dp-stm32f4"
 		]
+	},
+	"settings": {
+		"cortex-debug.registerUseNaturalFormat": false
 	}
 }
