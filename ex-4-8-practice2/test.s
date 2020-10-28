@@ -9,7 +9,7 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with v=44
-  MOV   R1, #44
+  MOV   R1, #100
   bx    lr
 
 .end
