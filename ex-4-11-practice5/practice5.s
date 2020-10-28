@@ -13,7 +13,27 @@ Main:
   @ 	v = 0;
   @ }
 
-  @ *** your solution goes here ***
+  @ ch    R1
+  @ v     R0
+
+@   CMP     R1, #0x61
+  CMP     R1, #'a'
+  BEQ     IfVowel
+  CMP     R1, #'e'
+  BEQ     IfVowel
+  CMP     R1, #'i'
+  BEQ     IfVowel
+  CMP     R1, #'o'
+  BEQ     IfVowel
+  CMP     R1, #'u'
+  BNE     ElseNotVowel
+
+IfVowel:
+  MOV     R0, #1
+  B       EndIfVowel
+ElseNotVowel:
+  MOV R0, #0
+EndIfVowel:
 
   @ End of program ... check your result
 

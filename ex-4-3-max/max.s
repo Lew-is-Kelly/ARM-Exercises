@@ -7,13 +7,14 @@ Main:
 
   @ Calculate the maximum of two values a and b
   @ a is in R1, b is in R2
-  CMP R1, R2
-  BLT ElseMaxB
-  MOV R0, R1
-  B EndMax
-ElseMaxB:
-  MOV R0, R2
-EndMax:
+  CMP R1, R2    @ if  (a > b)
+  BLT ElseMaxB  @ {
+  MOV R0, R1    @   result = a
+  B EndMax      @ }
+ElseMaxB:       @ else {
+  MOV R0, R2    @   result = b
+EndMax:         @ }
+
   @ End of program ... check your result
 
 End_Main:
