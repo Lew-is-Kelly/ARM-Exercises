@@ -9,7 +9,7 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with upper case character 'j'
-  MOV   R0, #'j'
+  MOV   R0, #'A'
   bx    lr
 
 .end

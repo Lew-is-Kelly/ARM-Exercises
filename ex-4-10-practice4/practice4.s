@@ -9,7 +9,18 @@ Main:
   @ 	ch = ch + 0x20;
   @ }
 
-  @ *** your solution goes here ***
+  CMP     R0, #'A'
+  BHS     LowerCaseA
+  B       End 
+LowerCaseA:
+  CMP     R0, #'Z'
+  BLS     LowerCaseZ
+  B       End
+LowerCaseZ:
+  ADD     R0, #0x20
+  B       End
+
+End:
 
   @ End of program ... check your result
 
