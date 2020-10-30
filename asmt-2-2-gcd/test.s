@@ -9,9 +9,8 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test by computing GCD of 45 and 27
-  LDR   R2, =45
-  LDR   R3, =27
-
+  LDR   R2, =48
+  LDR   R3, =36
   bx    lr
 
 .end
