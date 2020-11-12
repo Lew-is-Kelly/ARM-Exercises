@@ -4,14 +4,15 @@
   .thumb
 
   .global Init_Test
+  .global strA
 
   .section  .text
 
   .type     Init_Test, %function
 Init_Test:
 
-  LDR   R4, =strA
-  LDR   R5, =RamData
+  LDR   R4, =initStrA
+  LDR   R5, =strA
 
   @ Set R1 to the start address of the test string in RAM
   MOV   R1, R5
@@ -27,13 +28,13 @@ Loop:
 
   .section  .rodata
 
-strA:
+initStrA:
   .asciz  "Hello World!"
 
 
   .section  .data
 
-RamData:
+strA:
   .space  256
 
 .end

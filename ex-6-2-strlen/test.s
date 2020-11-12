@@ -4,6 +4,7 @@
   .thumb
 
   .global Init_Test
+  .global strA
 
   .section  .text
 
