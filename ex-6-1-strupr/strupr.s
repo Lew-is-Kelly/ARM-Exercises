@@ -6,9 +6,9 @@
 
 Main:
                       @ address initialised in test.s
-  LDRB  R2, [R1]      @ ch = byte[address];
 While:                @
-  CMP   R2, #0        @ while (ch != 0)
+  LDRB  R2, [R1]      @ while ((ch = byte[address]) != 0)
+  CMP   R2, #0        @
   BEQ   EndWhile      @ {
   CMP   R2, #'a'      @   if (ch >= 'a' && ch <= 'z')
   BLO   EndIfLwr      @   {
@@ -18,7 +18,6 @@ While:                @
   STRB  R2, [R1]      @     byte[address] = ch;
 EndIfLwr:             @   }
   ADD   R1, R1, #1    @   address = address + 1;
-  LDRB  R2, [R1]      @   ch = byte[address];
   B     While         @ }
 EndWhile:
 
