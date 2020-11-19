@@ -6,9 +6,16 @@
 
 Main:
 
+  MOV     R0, #0
 
-
-  @ End of program ... check your result
+While:
+  LDRB    R2, [R1]
+  CMP     R2, #0
+  BEQ     EndWh
+  ADD     R0, R0, #1
+  ADD     R1, R1, #1
+  B       While
+EndWh:
 
 End_Main:
   BX    lr
