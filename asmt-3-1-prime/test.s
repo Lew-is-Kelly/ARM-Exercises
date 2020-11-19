@@ -9,7 +9,7 @@
   .type     Init_Test, %function
 Init_Test:
   @ Test with 17
-  LDR   R1, =17
+  LDR   R1, =1
 
   bx    lr
 
