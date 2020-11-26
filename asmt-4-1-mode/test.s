@@ -14,7 +14,7 @@ Init_Test:
   @ Set R1 to the start address of values in memory
   @ Set R2 to the number of values in the sequence
   LDR   R1, =sequence
-  LDR   R2, =8
+  LDR   R2, =10
 
   @ Copy sequence from ROM to RAM
   LDR   R7, =init_sequence
@@ -36,7 +36,7 @@ EndCopy:
   .section  .rodata
 
 init_sequence:
-  .word  5, 3, 7, 5, 3, 5, 1, 9
+  .word  1, 2, 3, 3, 4, 5, 3, 6, 3, 7
 
 
   @ RAM
