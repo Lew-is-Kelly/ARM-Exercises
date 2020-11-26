@@ -29,7 +29,7 @@ Loop:
   .section  .rodata
 
 initStrA:
-  .asciz  "HELLO world"
+  .asciz  "hElLo WoRlD"
 
 
   .section  .data
