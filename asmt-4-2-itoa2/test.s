@@ -11,7 +11,7 @@
   .type     Init_Test, %function
 Init_Test:
   LDR   R0, =strA
-  LDR   R1, =-356
+  LDR   R1, =127
   BX    LR
   
 
