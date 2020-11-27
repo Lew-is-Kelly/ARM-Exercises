@@ -25,9 +25,9 @@ Loop:                         @
   CMP     R0, #0              @ while (char != 0)
   BEQ     End                 @ {
   CMP     R0, #'A'            @   if (char > 'A' && char < 'Z')
-  BLO     Else                @   {
+  BLT     Else                @   {
   CMP     R0, #'Z'            @      
-  BHI     Else                @
+  BGT     Else                @
   CMP     R2, #1              @      if (!isCap)
   BEQ     IsCap               @      {
   ADD     R0, R0, #0x20       @         char = char + 0x20;
@@ -38,9 +38,9 @@ IsCap:                        @      }
 
 Else:                         @   }
   CMP     R0, #'a'            @   else if (char > 'a' && char < 'z')
-  BLO     ElseIf              @   {
+  BLT     ElseIf              @   {
   CMP     R0, #'z'            @
-  BHI     ElseIf              @
+  BGT     ElseIf              @
   CMP     R2, #1              @      if (isCap)
   BNE     NextLoop            @      {
   SUB     R0, R0, #0x20       @      char = char - 0x20;
