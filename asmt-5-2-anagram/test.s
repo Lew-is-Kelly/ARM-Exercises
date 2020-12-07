@@ -47,10 +47,10 @@ WhCpy:
   .section  .rodata
 
 init_stringA:
-  .asciz  "easts"
+  .asciz  "steer"
 
 init_stringB:
-  .asciz  "seats"
+  .asciz  "rests"
 
 
   .section  .data
