@@ -31,7 +31,7 @@ Main:
 
 Counter:                    @ while (elemA!=0)
   LDRB    R3, [R12]         @ {   elemA=[addrT];
-  CMP     R3, #0            @     
+  CMP     R3, #0            @
   BEQ     EndCount1         @
   CMP     R3, #91           @     if(elemA<91)
   BHI     Cap1              @     {
@@ -43,7 +43,7 @@ Cap1:                       @     }
   B       Counter           @ }
 EndCount1:                  @ while (elemB!=0)
   LDRB    R4, [R11]         @ {   elemB=[addrT2]
-  CMP     R4, #0            @     
+  CMP     R4, #0            @
   BEQ     EndCount2         @
   CMP     R4, #91           @     if(elemB<91)
   BHI     Cap2              @     {
@@ -63,7 +63,7 @@ EndCount2:                  @
 
 While1:                     @     while(elemA!=0)         
   LDRB    R3, [R1]          @     {   elemA=[addrA];
-  CMP     R3, #0            @         
+  CMP     R3, #0            @
   BEQ     EndWh1            @
   MOV     R12, R2           @         addrT=addrB;
 
