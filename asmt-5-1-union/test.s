@@ -28,7 +28,7 @@ setA:
 
 setB:
   .word  8                                        @ size B
-  .word  -7, 14, 44, 81, -5, 15, 0, 2             @ elems B
+  .word  81, 14, 44, -7, -5, 15, 0, 2             @ elems B
 
 
   .section  .data
