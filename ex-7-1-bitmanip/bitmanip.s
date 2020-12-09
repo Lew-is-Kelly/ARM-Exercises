@@ -20,6 +20,13 @@ Main:
 
   @ *** your solution goes here ***
 
+  LDR     R0, =0xFF0000FF
+  AND     R1, R1, R0
+
+  ORR     R2, R2, #0xF0000000
+
+  EOR     R3, R3, #0x55555555
+
   @ End of program ... check your result
 
 End_Main:
