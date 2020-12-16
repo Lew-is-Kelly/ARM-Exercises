@@ -4,7 +4,7 @@
   .thumb
 
   .global Init_Test
-  .global stringA
+  .global stringC
 
   .section  .text
 
@@ -16,7 +16,7 @@ Init_Test:
 
   @ Set R1 to the start address of the test string
   @ Test with various strings defined below
-  LDR   R1, =stringA
+  LDR   R1, =stringC
 
   BX    LR
 
