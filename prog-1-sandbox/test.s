@@ -7,13 +7,9 @@
 
   .type     Init_Test, %function
 Init_Test:
-  @ Initialise registers with your test vlues here
-  MOV R1, #-5
-  MOV R2, #7
 
-  @ Do not edit below this line
+
+
   bx    lr
 
 .end
-
-@ Hello Elliot!
