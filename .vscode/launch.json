@@ -13,7 +13,7 @@
             "serverpath": "${config:qemu-system-arm}",
             "runToMain": false,
             "overrideGDBServerStartedRegex": "(qemu)",
-            "postStartSessionCommands": ["break End_Main", "advance Main"]
+            "postStartSessionCommands": ["break Main", "break End_Main", "continue"]
         }
     ]
 }
