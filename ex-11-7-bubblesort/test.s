@@ -6,17 +6,18 @@
   .global Init_Test
   .global testValues
 
-  .section  .text
+  .equ    count_testValues, (size_testValues >> 2)
 
+  .section  .text
 
   .type     Init_Test, %function
 Init_Test:
   STMFD   SP!, {LR}
 
-  BL      InitRam                     @ utility subroutine to initialise RAM from ROM
+  BL      InitRam                       @ utility subroutine to initialise RAM from ROM
 
-  LDR     R1, =testValues             @ start address of array
-  LDR     R2, =(size_testValues >> 2) @ size of array
+  LDR     R1, =testValues               @ start address of array
+  LDR     R2, =count_testValues         @ size of array
 
   LDMFD   SP!, {PC}
 
