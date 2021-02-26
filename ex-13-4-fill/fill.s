@@ -6,12 +6,6 @@
 
 Main:
 
-  @
-  @ Program to convert two strings to UPPERCASE
-  @ Assume the first string starts at the address in R1
-  @ Assume the second string starts at the address in R2
-  @
-
   MOV     R0, R4            @ address parameter
   MOV     R1, #64           @ fill 64 words
   LDR     R2, =12345678     @ fill with value 12345678
