@@ -13,6 +13,5 @@
 		]
 	},
 	"settings": {
-		"cortex-debug.registerUseNaturalFormat": false
 	}
 }
