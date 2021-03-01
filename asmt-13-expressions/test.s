@@ -26,7 +26,7 @@ Init_Test:
   .section  .rodata
 
 rpn_expr:
-  .asciz   "5 3 + 4 2 + *"           @ test RPN expression
+  .asciz   "578 3 - 4 2 + *"           @ test RPN expression
 
 
   .section  .data
