@@ -81,6 +81,7 @@ MoreDigits:               @     while (tempElem >= '0' && tempElem <= '9') {
   BLT     EndMoreDigits   @
   CMP     R6, '9'         @
   BHI     EndMoreDigits   @
+  
   SUB     R6, R6, R10     @       tempElem -= 0x30;
   MUL     R2, R2, R7      @       elem *= 10;
   ADD     R2, R2, R6      @       elem += tempElem;
