@@ -14,6 +14,8 @@
 Main:
   STMFD   SP!, {LR}
 
+  BL      InitRam
+
   @
   @ Test each of the subroutines
   @
@@ -56,9 +58,33 @@ End_Main:
 Init_Test:
   BX      LR
 
+
+@ InitRam subroutine
+@ Utility subroutine to initialise RAM from ROM
+InitRam:
+
+  STMFD   SP!, {R4-R7,LR}
+  
+  LDR   R4, =init_start    @ start address of initialisation data
+  LDR   R5, =init_end      @ end address of initialisation data
+  LDR   R6, =data_start    @ start oddress of RAM data
+
+whInit:
+  CMP   R4, R5            @ copy word-by-word from init_start
+  BHS   ewhInit           @   to init_end in ROM, storing in RAM
+  LDR   R7, [R4], #4      @   starting at data_start
+  STR   R7, [R6], #4      @
+  B     whInit            @
+ewhInit:                  @
+
+  LDMFD   SP!, {R4-R7,PC}
+
+
   .section  .rodata
 
-origArray:
+init_start:
+
+init_origArray:
   .word  10, 10, 10, 10, 10, 10, 10, 10, 10
   .word  10, 10, 10, 10, 10, 10, 10, 10, 10
   .word  10, 12, 12, 12, 12, 12, 10, 10, 10
@@ -68,12 +94,20 @@ origArray:
   .word  10, 12, 12, 12, 12, 12, 10, 10, 10
   .word  10, 10, 10, 10, 10, 10, 20, 10, 10
   .word  10, 10, 10, 10, 10, 10, 10, 10, 10
-  .equ   size_origArray, .-origArray
+  .equ   size_origArray, .-init_origArray
+
+init_end:
 
 
   .section  .data
-newArray:
+
+data_start:
+
+origArray:
   .space  size_origArray  @ enough space for a copy of origArray above
+
+newArray:
+  .space  size_origArray  @ enough space for another copy of origArray above
 
 
 .end
