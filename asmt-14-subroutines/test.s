@@ -18,20 +18,20 @@ Main:
   @ Test each of the subroutines
   @
 
-  @ Test get9x9 by getting array[6][7]
+  @ Test get9x9 by getting array[7][6]
   LDR     R0, =origArray
-  LDR     R1, =6
-  LDR     R2, =7
+  LDR     R1, =7
+  LDR     R2, =6
   BL      get9x9
   @ R0 should be 20
 
-  @ Test set9x9 by setting array[6][7] to 10 ...
+  @ Test set9x9 by setting array[7][6] to 10 ...
   LDR     R0, =origArray
-  LDR     R1, =6
-  LDR     R2, =7
+  LDR     R1, =7
+  LDR     R2, =6
   LDR     R3, =10
   BL      set9x9
-  @ array[6][7] should be 10
+  @ array[7][6] should be 10
 
   @ Test average9x9 by getting the average
   @ around array[4][3] at a radius of 2
