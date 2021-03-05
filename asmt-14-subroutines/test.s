@@ -30,7 +30,7 @@ Main:
   LDR     R1, =6
   LDR     R2, =7
   LDR     R3, =10
-  BL      get9x9
+  BL      set9x9
   @ array[6][7] should be 10
 
   @ Test average9x9 by getting the average
