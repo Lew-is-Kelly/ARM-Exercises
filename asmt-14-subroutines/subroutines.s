@@ -87,8 +87,8 @@ average9x9:
 @ original array, also stored in memory.
 @
 @ Parameters:
-@   R0: addressA - start address of new array
-@   R1: addressB - start address of original array
+@   R0: addressA - start address of original array
+@   R1: addressB - start address of new array
 @   R2: n - radius
 @
 @ Return:
