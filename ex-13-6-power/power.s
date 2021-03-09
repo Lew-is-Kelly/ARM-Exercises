@@ -42,16 +42,15 @@ powerNe1:
   CMP   R6, #0
   BNE   powerNeEven
 
-  MOV   R0, R4          @   result = power (x * x, n >> 1)
-  MUL   R0, R4, R0
+  MUL   R0, R4, R4      @   result = power (x * x, n >> 1);
   MOV   R1, R5, LSR #1  @   // using LSR by 1 bit to implement division by 2
   BL    power
   
   B     powerEndIf      @ }
 powerNeEven:
 
-  MOV   R0, R4          @ else {
-  MUL   R0, R4, R0      @   result = x * power (x * x, n >> 1);
+                        @ else {
+  MUL   R0, R4, R4      @   result = x * power (x * x, n >> 1);
   MOV   R1, R5, LSR #1
   BL    power
   MUL   R0, R4, R0
