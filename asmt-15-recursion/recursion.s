@@ -3,10 +3,13 @@
   .fpu softvfp
   .thumb
   
-  .global  quicksort
+  .global   quicksort
+  .global   partition
+  .global   swap
 
 @ quicksort subroutine
 @ Sort an array of words using Hoare's quicksort algorithm
+@ https://en.wikipedia.org/wiki/Quicksort 
 @
 @ Parameters:
 @   R0: Array start address
@@ -18,7 +21,8 @@
 quicksort:
   PUSH    {LR}                      @ add any registers R4...R12 that you use
 
-  @ if (lo < hi) {
+  @ *** PSEUDOCODE ***
+  @ if (lo < hi) { // !!! You must use signed comparison (e.g. BGE) here !!!
   @   p = partition(array, lo, hi);
   @   quicksort(array, lo, p - 1);
   @   quicksort(array, p + 1, hi);
@@ -48,6 +52,7 @@ quicksort:
 partition:
   PUSH    {LR}                      @ add any registers R4...R12 that you use
 
+  @ *** PSEUDOCODE ***
   @ pivot = array[hi];
   @ i = lo;
   @ for (j = lo; j <= hi; j++) {
