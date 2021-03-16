@@ -37,7 +37,7 @@ quicksort:
 
 @ partition subroutine
 @ Partition an array of words into two parts such that all elements before some
-@   element in the array this is chosen as a 'pivot' are less than the pivot
+@   element in the array that is chosen as a 'pivot' are less than the pivot
 @   and all elements after the pivot are greater than the pivot.
 @
 @ Based on Lomuto's partition scheme (https://en.wikipedia.org/wiki/Quicksort)
@@ -76,7 +76,7 @@ partition:
 @ Swap the elements at two specified indices in an array of words.
 @
 @ Parameters:
-@   R0: array start address
+@   R0: array - start address of an array of words
 @   R1: a - index of first element to be swapped
 @   R2: b - index of second element to be swapped
 @
