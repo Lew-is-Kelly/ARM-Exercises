@@ -19,20 +19,37 @@
 @ Return:
 @   none
 quicksort:
-  PUSH    {LR}                      @ add any registers R4...R12 that you use
+  PUSH    {R4-R7, LR}                  @ add any registers R4...R12 that you use
 
-  @ *** PSEUDOCODE ***
-  @ if (lo < hi) { // !!! You must use signed comparison (e.g. BGE) here !!!
-  @   p = partition(array, lo, hi);
-  @   quicksort(array, lo, p - 1);
-  @   quicksort(array, p + 1, hi);
-  @ }
+                                    @ quicksort(array, lo, hi) {
+  CMP     R1, R2                    @   if (lo < hi) { // !!! You must use signed comparison (e.g. BGE) here !!!
+  BGE     LoGreaterEqualHi          @
 
-  @
-  @ your implementation goes here
-  @
+  MOV     R5, R0                    @     tempAddress = arrayAddress;
+  MOV     R6, R1                    @     tempLo = lo;
+  MOV     R7, R2                    @     tempHi = hi;
 
-  POP     {PC}                      @ add any registers R4...R12 that you use
+  BL      partition                 @     partition(array, lo, hi);
+  MOV     R4, R0                    @     pivot = partition;
+  MOV     R0, R5                    @     arrayAddress = tempAddress;
+  MOV     R1, R6                    @     lo = tempLo;
+  MOV     R2, R7                    @     hi = tempHi;
+
+  SUB     R4, R4, #1                @     pivot--;
+  MOV     R2, R4                    @     hi = pivot
+  BL      quicksort                 @     quicksort(array, lo, hi);
+  MOV     R0, R5                    @     arrayAddress = tempAddress;
+  MOV     R1, R6                    @     lo = tempLo;
+  MOV     R2, R7                    @     hi = tempHi;
+
+  ADD     R4, R4, #2                @     pivot = pivot + 2;
+  MOV     R1, R4                    @     lo = pivot;
+  BL      quicksort                 @     quicksort(array, lo, hi);
+
+LoGreaterEqualHi:                   @   }
+                                    @ }
+
+  POP     {R4-R7, PC}                  @ add any registers R4...R12 that you use
 
 
 @ partition subroutine
@@ -50,25 +67,41 @@ quicksort:
 @ Return:
 @   R0: pivot - the index of the chosen pivot value
 partition:
-  PUSH    {LR}                      @ add any registers R4...R12 that you use
+  PUSH    {R4-R8, LR}               @ add any registers R4...R12 that you use
 
-  @ *** PSEUDOCODE ***
-  @ pivot = array[hi];
-  @ i = lo;
-  @ for (j = lo; j <= hi; j++) {
-  @   if (array[j] < pivot) {
-  @     swap (array, i, j);
-  @     i = i + 1;
-  @   }
-  @ }
-  @ swap(array, i, hi);
-  @ return i;
+                                    @ partition(array, lo, hi) {
+  LDR     R4, [R0, R2, LSL#2]       @   pivot = array[hi];
+  MOV     R5, R1                    @   i = lo;
+  
+  MOV     R6, R1                    @   j = lo;
+For:
+  CMP     R6, R2                    @   for (j = lo; j <= hi; j++) {
+  BHI     ForOver                   @
+  
+  LDR     R7, [R0, R6, LSL#2]       @     element = array[j]
+  CMP     R7, R4                    @     if (element < pivot) {
+  BHS     ElemGreaterEqualPiv       @
 
-  @
-  @ your implementation goes here
-  @
+  MOV     R1, R5                    @       a = i;
+  MOV     R8, R2                    @       tempHi = hi;
+  MOV     R2, R6                    @       b = j;
+  BL      swap                      @       swap(array, a, b);
+  MOV     R2, R8                    @       hi = tempHi;
 
-  POP     {PC}                      @ add any registers R4...R12 that you use
+  ADD     R5, R5, #1                @       i++;
+
+ElemGreaterEqualPiv:                @     }
+
+  ADD     R6, R6, #1                @     j++;
+  B       For                       @
+ForOver:                            @   }
+
+  MOV     R1, R5                    @   a = i;
+  BL      swap                      @   swap(array, a, hi);
+  MOV     R0, R5                    @   return i;
+                                    @ }
+
+  POP     {R4-R8, PC}               @ add any registers R4...R12 that you use
 
 
 
@@ -83,13 +116,17 @@ partition:
 @ Return:
 @   none
 swap:
-  PUSH    {LR}
+  PUSH    {R4, R5, LR}
 
-  @
-  @ your implementation goes here
-  @
+                                    @ swap(array, a, b) {
+  LDR     R4, [R0, R1, LSL#2]       @   elementOne = array[a];
+  LDR     R5, [R0, R2, LSL#2]       @   elementTwo = array[b];
 
-  POP     {PC}
+  STR     R4, [R0, R2, LSL#2]       @   array[b] = elementOne;
+  STR     R5, [R0, R1, LSL#2]       @   array[a] = elementTwo;
+                                    @ }
+
+  POP     {R4, R5, PC}
 
 
 .end
