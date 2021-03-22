@@ -7,7 +7,7 @@
   .global Init_Test
   .global testArray
 
-  .set count_testArray, (size_testArray / 4)
+  .set hi_testArray, ((size_testArray / 4) - 1)
 
 
 
@@ -18,7 +18,7 @@ Main:
 
   LDR     R0, =testArray
   LDR     R1, =0
-  LDR     R2, =count_testArray
+  LDR     R2, =hi_testArray
   BL      quicksort
 
 End_Main:
