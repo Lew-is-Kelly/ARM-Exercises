@@ -34,6 +34,35 @@
                     }
                 }
             ]
+        },
+        {
+            "label": "Launch Emulator with Graphic",
+            "type": "shell",
+            "command": "${config:qemu-system-arm}",
+            "args": [
+                "-verbose",
+                "-cpu", "cortex-m4",
+                "-machine", "STM32F4-Discovery",
+                "-gdb", "tcp::56789",
+                "-S",
+                "-kernel", "${fileDirname}/build/firmware.elf"
+            ],
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^.*Cortex-M4 r0p0 core initialised.*",
+                    "endsPattern": "^.*GDB Server listening on.*"
+                }
+             }
         }
     ]
 }
