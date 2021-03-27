@@ -3,9 +3,9 @@
   .fpu softvfp
   .thumb
   
-  .global   quicksort
-  .global   partition
-  .global   swap
+  .global   fp_exp
+  .global   fp_frac
+  .global   fp_enc
 
 
 
