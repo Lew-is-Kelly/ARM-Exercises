@@ -55,66 +55,16 @@ Main:
   STR     R5, [R4]                  @ Write
 
   @ wait for 1s ...
-  LDR     R0, =1000
-  BL      delay_ms
+  LDR     R5, =8000000    @ Assuming 16MHz clock and 2 instructions executed
+                          @   in each iteration of the loop below
+.Lwhwait:
+  SUBS    R5, R5, #1      @ Keep looping until we count down to zero
+  BNE     .Lwait  
 
   @ ... and repeat
   B       .LwhBlink
   
 End_Main:
-  POP   {R4-R5,PC}
-
-
-
-@ delay_ms subroutine
-@ Use the Cortex SysTick timer to wait for a specified number of milliseconds
-@
-@ See Yiu, Joseph, "The Definitive Guide to the ARM Cortex-M3 and Cortex-M4
-@   Processors", 3rd edition, Chapter 9.
-@
-@ Parameters:
-@   R0: delay - time to wait in ms
-@
-@ Return:
-@   None
-delay_ms:
-  PUSH  {R4-R5,LR}
-
-  LDR   R4, =SYSTICK_CSR            @ Stop SysTick timer
-  LDR   R5, =0                      @   by writing 0 to CSR
-  STR   R5, [R4]                    @   CSR is the Control and Status Register
-  
-  LDR   R4, =SYSTICK_LOAD           @ Set SysTick LOAD for 1ms delay
-  LDR   R5, =0x3E7F                 @ Assuming a 16MHz clock,
-  STR   R5, [R4]                    @   16x10^6 / 10^3 - 1 = 15999 = 0x3E7F
-  
-.LwhDelay:                          @ while (delay != 0) {
-  CMP   R0, #0  
-  BEQ   .LendwhDelay  
-  
-  LDR   R4, =SYSTICK_VAL            @   Reset SysTick internal counter to 0
-  LDR   R5, =0x1                    @     by writing any value
-  STR   R5, [R4]  
-  
-  LDR   R4, =SYSTICK_CSR            @   Start SysTick timer by setting CSR to 0x5
-  LDR   R5, =0x5                    @     set CLKSOURCE (bit 2) to system clock (1)
-  STR   R5, [R4]                    @     set ENABLE (bit 0) to 1
-
-.Lwait:
-  LDR   R5, [R4]                    @   Repeatedly load the CSR and check bit 16
-  AND   R5, #0x10000                @   Loop until bit 16 is 1, indicating that
-  CMP   R5, #0                      @     the SysTick internal counter has counted
-  BEQ   .Lwait                      @     from 0x3E7F down to 0 and 1ms has elapsed 
-
-  LDR   R4, =SYSTICK_CSR            @   Stop SysTick Timer
-  LDR   R5, =0                      @     by writing 0 to CSR again
-  STR   R5, [R4]
-
-  SUB   R0, R0, #1                  @   delay = delay - 1
-  B     .LwhDelay                   @ }
-
-.LendwhDelay:
-
   POP   {R4-R5,PC}
 
 
