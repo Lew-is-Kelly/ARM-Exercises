@@ -3,7 +3,7 @@
   .thumb
   .global Main
 
-  @ Definitions are in definitions.s to keep blinky.s "clean"
+  @ Definitions are in definitions.s to keep this file "clean"
   .include "definitions.s"
 
   .equ    BLINK_PERIOD, 1000

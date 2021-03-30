@@ -4,7 +4,7 @@
   .global Main
   .global SysTick_Handler
 
-  @ Definitions are in definitions.s to keep blinky.s "clean"
+  @ Definitions are in definitions.s to keep this file "clean"
   .include "definitions.s"
 
   .equ    BLINK_PERIOD, 1000
@@ -29,17 +29,13 @@
 Main:
   PUSH    {R4-R5,LR}
 
+
   @ Enable GPIO port D by enabling its clock
   LDR     R4, =RCC_AHB1ENR
   LDR     R5, [R4]
   ORR     R5, R5, RCC_AHB1ENR_GPIODEN
   STR     R5, [R4]
 
-  @ We'll blink LED LD3 (the orange LED) every 1s
-
-  LDR     R4, =countdown
-  LDR     R5, =BLINK_PERIOD
-  STR     R5, [R4]  
 
   @ Configure LD3 for output
   @ by setting bits 27:26 of GPIOD_MODER to 01 (GPIO Port D Mode Register)
@@ -49,6 +45,17 @@ Main:
   BIC     R5, #(0b11<<(LD3_PIN*2))  @ Modify ...
   ORR     R5, #(0b01<<(LD3_PIN*2))  @ write 01 to bits 
   STR     R5, [R4]                  @ Write 
+
+
+  @ We'll blink LED LD3 (the orange LED) every 1s
+  @ Initialise the first countdown to 1000 (1000ms)
+
+  LDR     R4, =countdown
+  LDR     R5, =BLINK_PERIOD
+  STR     R5, [R4]  
+
+
+  @ Configure SysTick Timer to generate an interrupt every 1ms
 
   LDR   R4, =SYSTICK_CSR            @ Stop SysTick timer
   LDR   R5, =0                      @   by writing 0 to CSR
@@ -67,48 +74,53 @@ Main:
   STR   R5, [R4]                    @     set TICKINT (bit 1) to 1 to enable interrupts
                                     @     set ENABLE (bit 0) to 1
 
-Do_Nothing:
-  B     Do_Nothing
+  @ Nothing else to do in Main
+  @ Idle loop forever (welcome to interrupts!)
+Idle_Loop:
+  B     Idle_Loop
   
 End_Main:
   POP   {R4-R5,PC}
 
 
+@
+@ SysTick interrupt handler
+@
   .type  SysTick_Handler, %function
 SysTick_Handler:
 
-  LDR   R4, =countdown
-  LDR   R5, [R4]
-  CMP   R5, #0
-  BEQ   .LelseFire
+  PUSH  {R4, R5, LR}
 
-  SUB   R5, R5, #1
-  STR   R5, [R4]
+  LDR   R4, =countdown              @ if (countdown != 0) {
+  LDR   R5, [R4]                    @
+  CMP   R5, #0                      @
+  BEQ   .LelseFire                  @
 
-  B     .LendIfDelay
+  SUB   R5, R5, #1                  @   countdown = countdown - 1;
+  STR   R5, [R4]                    @
 
-.LelseFire:
+  B     .LendIfDelay                @ }
 
-  @ Invert LD3
-  @ by inverting bit 13 of GPIOD_ODR (GPIO Port D Output Data Register)
-  @ (by using EOR to invert bit 13, leaving other bits unchanged)
-  LDR     R4, =GPIOD_ODR
-  LDR     R5, [R4]                  @ Read ...
-  EOR     R5, #(0b1<<(LD3_PIN))     @ Modify ...
-  STR     R5, [R4]                  @ Write
+.LelseFire:                         @ else {
 
-  LDR     R4, =countdown
-  LDR     R5, =BLINK_PERIOD
-  STR     R5, [R4]
+  LDR     R4, =GPIOD_ODR            @   Invert LD3
+  LDR     R5, [R4]                  @
+  EOR     R5, #(0b1<<(LD3_PIN))     @   GPIOD_ODR = GPIOD_ODR ^ (1<<LD3_PIN);
+  STR     R5, [R4]                  @ 
 
-.LendIfDelay:
+  LDR     R4, =countdown            @   countdown = BLINK_PERIOD;
+  LDR     R5, =BLINK_PERIOD         @
+  STR     R5, [R4]                  @
 
-  LDR     R4, =SCB_ICSR
-  LDR     R5, =SCB_ICSR_PENDSTCLR
-  STR     R5, [R4]
+.LendIfDelay:                       @ }
 
-  BX    LR
-  @ .size  SysTick_Handler, .-SysTick_Handler
+  LDR     R4, =SCB_ICSR             @ Clear (acknowledge) the interrupt
+  LDR     R5, =SCB_ICSR_PENDSTCLR   @
+  STR     R5, [R4]                  @
+
+  @ Return from interrupt handler
+  POP  {R4, R5, PC}
+
 
   .section .data
 
