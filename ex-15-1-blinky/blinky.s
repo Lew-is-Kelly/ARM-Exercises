@@ -55,7 +55,7 @@ Main:
   STR     R5, [R4]                  @ Write
 
   @ wait for 1s ...
-  LDR     R5, =8000000    @ Assuming 16MHz clock and 2 instructions executed
+  LDR     R5, =800000000    @ Assuming 16MHz clock and 2 instructions executed
                           @   in each iteration of the loop below
 .Lwhwait:
   SUBS    R5, R5, #1      @ Keep looping until we count down to zero
