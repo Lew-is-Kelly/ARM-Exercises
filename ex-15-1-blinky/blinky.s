@@ -59,7 +59,7 @@ Main:
                           @   in each iteration of the loop below
 .Lwhwait:
   SUBS    R5, R5, #1      @ Keep looping until we count down to zero
-  BNE     .Lwait  
+  BNE     .Lwhwait  
 
   @ ... and repeat
   B       .LwhBlink
