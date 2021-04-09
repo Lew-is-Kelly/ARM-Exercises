@@ -4,6 +4,9 @@
   .global Main
   .global SysTick_Handler
 
+@ Uncomment if you are providing a EXTI0_IRQHandler subroutine
+@  .global EXTI0_IRQHandler
+
   @ Definitions are in definitions.s to keep this file "clean"
   .include "definitions.s"
 
