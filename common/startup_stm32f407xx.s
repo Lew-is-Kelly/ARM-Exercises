@@ -28,7 +28,6 @@
   .weak  Reset_Handler
   .type  Reset_Handler, %function
 Reset_Handler:  
-  ldr   sp, =_estack     /* set stack pointer */
   bl    Init_Test
   bl    Main
 Eval_Test:
