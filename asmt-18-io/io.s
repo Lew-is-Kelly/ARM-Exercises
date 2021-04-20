@@ -53,9 +53,9 @@ Main:
   @ We'll blink LED LD3 (the orange LED) every 1s
   @ Initialise the first countdown to 1000 (1000ms)
 
-  LDR     R4, =countdown
-  LDR     R5, =BLINK_PERIOD
-  STR     R5, [R4]  
+  LDR     R4, =countdown            @
+  LDR     R5, =BLINK_PERIOD         @
+  STR     R5, [R4]                  @
 
 
   @ Configure SysTick Timer to generate an interrupt every 1ms
@@ -76,10 +76,6 @@ Main:
   LDR   R5, =0x7                    @     set CLKSOURCE (bit 2) to system clock (1)
   STR   R5, [R4]                    @     set TICKINT (bit 1) to 1 to enable interrupts
                                     @     set ENABLE (bit 0) to 1
-
-  LDR     R4, =lightCount           @   
-  MOV     R5, #4                    @     initilise lightCount to 4
-  STR     R5, [R4]                  @     
 
   @ Enable (unmask) interrupts on external interrupt Line0
   LDR     R4, =EXTI_IMR
@@ -149,7 +145,7 @@ NotFirstFire:                       @
   BNE     NotGreen                  @
   EOR     R5, #0b1<<(LD4_PIN)       @   GPIOD_ODR = GPIOD_ODR ^ (1<<LD4_PIN);
   EOR     R5, #0b1<<(LD3_PIN)       @   GPIOD_ODR = GPIOD_ODR ^ (1<<LD6_PIN);
-  MOV     R7, #1
+  MOV     R7, #1                    @
   B       Over                      @
 NotGreen:                           @
 
@@ -248,10 +244,10 @@ EXTI0_IRQHandler:
 countdown:
   .space  4
 
-lightCount:
+lightCount:                         @ count to see what lights should be inverted. Used to check if the player has won
   .space  4
 
-runLights:
+runLights:                          @ boolean that lets the program run
   .space  4
 
   .end
