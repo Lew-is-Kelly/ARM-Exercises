@@ -7,8 +7,6 @@
   @ Definitions are in definitions.s to keep this file "clean"
   .include "definitions.s"
 
-  .equ    BLINK_PERIOD, 1000
-
 @
 @ To debug this program, you need to change your "Run and Debug"
 @   configuration from "Emulate current ARM .s file" to "Graphic Emulate
@@ -29,11 +27,9 @@
 Main:
   PUSH    {R4-R5,LR}
 
-  @ Enable GPIO port D by enabling its clock
-  LDR     R4, =RCC_AHB1ENR
-  LDR     R5, [R4]
-  ORR     R5, R5, RCC_AHB1ENR_GPIODEN
-  STR     R5, [R4]
+  LDR   R4, =count        @ count = 0;
+  MOV   R5, #0            @
+  STR   R5, [R4]          @
 
   @ Enable (unmask) interrupts on external interrupt Line0
   LDR     R4, =EXTI_IMR
