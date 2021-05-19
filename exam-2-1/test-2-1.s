@@ -24,7 +24,7 @@ End_Main:
 
   .section  .rodata
 
-@ Grid with "compute" appearing horizontally starting at [6,3]
+@ Grid with "compute" appearing horizontally starting at [7,3]
 grid:
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
@@ -32,12 +32,12 @@ grid:
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
-    .byte   'x', 'x', 'x', 'c', 'o', 'm', 'p', 'u', 't', 'e', 'x', 'x'
+    .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
+    .byte   'x', 'x', 'x', 'x', 'o', 'm', 'p', 'u', 't', 'e', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
     .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
-    .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
-    .byte   'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'
+    .byte   'x', 'x', 'x', 'x', 'x', 'c', 'o', 'm', 'p', 'u', 't', 'e'
 
 
 oneString:
